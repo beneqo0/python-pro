@@ -35,4 +35,4 @@ async def add(ctx, left: int, right: int):
     await ctx.send(left + right)
 
     
-bot.run("MTIwODM4MzE1MjQxNTA1MTc5OA.GwjsU-.ZD675olW6l75t8y19E9fOEYovKbifp5cztb1qs")
+bot.run("token")
