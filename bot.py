@@ -15,7 +15,7 @@ async def on_ready():
 
 @bot.command()
 async def hello(ctx):
-    await ctx.send(f'Cześć, jestem bot{bot.user}!')
+    await ctx.send(f' no witam ja jestem {bot.user} a ty? ')
 
 @bot.command()
 async def heh(ctx, count_heh = 5):
@@ -23,18 +23,15 @@ async def heh(ctx, count_heh = 5):
 
 @bot.command()
 async def joined(ctx, member: discord.Member):
-    """Says when a member joined."""
     await ctx.send(f'{member.name} joined {discord.utils.format_dt(member.joined_at)}')
 
 @bot.command()
 async def repeat(ctx, times: int, content='repeating...'):
-    """Repeats a message multiple times."""
     for i in range(times):
         await ctx.send(content)
 
 @bot.command()
 async def add(ctx, left: int, right: int):
-    """Adds two numbers together."""
     await ctx.send(left + right)
 
 @bot.command()
@@ -49,7 +46,7 @@ async def mem_p(ctx):
 async def mem_a(ctx):
     meme_names = os.listdir('animals')
     memes= random.choice(meme_names)
-    with open(f'images/{memes}', 'rb') as f:
+    with open(f'animals/{memes}', 'rb') as f:
         picture = discord.File(f)
     await ctx.send(file=picture)
 
@@ -61,10 +58,25 @@ def get_duck_image_url():
 
 @bot.command('duck')
 async def duck(ctx):
-    '''Po wywołaniu polecenia duck program wywołuje funkcję get_duck_image_url'''
     image_url = get_duck_image_url()
     await ctx.send(image_url)
 
+def gen_pass(pass_length):
+    elements = "+-/*!&$#?=@<>1234567890QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm"
+    password = ""
 
+    for i in range(pass_length):
+        password += random.choice(elements)
 
-bot.run("token")
+    return password
+
+@bot.command('password')
+async def password(ctx, length= 5):
+    await ctx.send(gen_pass(length))
+
+@bot.command('pomocy')
+async def pomocy(ctx):
+    await ctx.send('żeby korzystać z komend nalezy użyć znaku --> $ ')
+    await ctx.send('w przyszłości pojawią się tu informacje dotyczące działania komend, wyczekuj!!!')
+
+bot.run("TOKEN")
